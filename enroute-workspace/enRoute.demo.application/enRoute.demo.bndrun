@@ -1,0 +1,17 @@
+#
+# ENROUTE DEMO APPLICATION RUN SPECIFICATION
+#
+
+
+Bundle-Version:				1.0.0.${tstamp}
+Bundle-SymbolicName:		enRoute.demo.application.launch
+JPM-Command:					demo
+
+
+-runfw:						org.eclipse.osgi
+
+-runrequires:  \
+	osgi.identity;filter:='(osgi.identity=enRoute.demo.application)'
+
+-runbundles: \
+	${error;Resolve first}

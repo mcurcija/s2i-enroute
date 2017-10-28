@@ -1,0 +1,25 @@
+#
+# ENROUTE DEMO APPLICATION APPLICATION
+#
+
+Bundle-Version: 1.0.0.${tstamp}
+Bundle-Description: An enRoute demo application bundle.
+
+Private-Package:  \
+	enroute.demo.application
+
+EnRoute-Application: 	enRoute.demo
+JPM-Command:			demo
+
+-includeresource: \
+	{readme.md}, \
+	{configuration=configuration}, \
+	{static=static}, \
+	web=web
+
+-buildpath: \
+	osgi.enroute.base.api
+	
+-testpath: \
+	osgi.enroute.junit.wrapper;version=4.12
+Bundle-Name: enRoute demo application
