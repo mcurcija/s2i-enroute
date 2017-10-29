@@ -1,16 +1,13 @@
 # s2i-enRoute
 # based on: https://github.com/jorgemoralespou/s2i-java
 FROM openjdk:alpine
-
 LABEL maintainer="Mario Curcija <mario.curcija@gmail.com>"
-
 RUN apk --no-cache add curl libstdc++ git bash
 
 WORKDIR /tmp
 
 ENV GRADLE_VERSION=3.5.1
 ENV GRADLE_HOME=/opt/gradle
-
 RUN curl -O --location --silent --show-error https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
         && mkdir /opt \
         && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt \
@@ -23,6 +20,9 @@ ENV HOME=/opt/app-root/src
 RUN mkdir -p ${HOME} \
         && addgroup enroute \
         && adduser -h ${HOME} -D -G enroute enroute
+
+# ensure openshift deployment directory
+RUN mkdir -p /opt/openshift && chown enroute:enroute /opt/openshift
 
 LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 COPY ./s2i/bin/ /usr/local/s2i  
