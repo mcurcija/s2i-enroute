@@ -1,2 +1,0 @@
-ARTIFACT_DIR=com.example.enroute.demo.application/generated/distributions/executable
-BUILDER_ARGS=-b com.example.enroute.demo.application/build.gradle export.debug
