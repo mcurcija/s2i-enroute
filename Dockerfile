@@ -4,10 +4,10 @@ FROM openjdk:alpine
 
 LABEL maintainer="Mario Curcija <mario.curcija@gmail.com>"
 
-RUN apk --no-cache add curl libstdc++
+RUN apk --no-cache add curl libstdc++ git
 
-LABEL io.openshift.s2i.scripts-url=image:///usr/local/sti
-COPY ./sti/bin/ /usr/local/sti
+LABEL io.openshift.s2i.scripts-url=image:///usr/local/lib/s2i
+COPY ./s2i/bin/ /usr/local/lib/s2i
 
 WORKDIR /tmp
 
@@ -20,7 +20,7 @@ RUN curl -O --location --silent --show-error https://downloads.gradle.org/distri
         && ln -s ${GRADLE_HOME}-${GRADLE_VERSION} ${GRADLE_HOME} \
         && rm -f gradle-${GRADLE_VERSION}-bin.zip
 
-ENV HOME=/opt/enroute
+ENV HOME=/opt/app-root/src
 
 # add user enroute
 RUN mkdir -p ${HOME} \
@@ -35,7 +35,7 @@ WORKDIR ${HOME}
 ENV PATH=${GRADLE_HOME}/bin/:$PATH
 
 ENV BUILDER_VERSION 1.0
-LABEL io.k8s.description="Platform for building enRoute fat jar applications gradle" \
+LABEL io.k8s.description="Platform for building enRoute fat jar applications using gradle" \
       io.k8s.display-name="enRoute S2I builder 1.0" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,enRoute,gradle,java,microservices,export"
