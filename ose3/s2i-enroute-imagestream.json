@@ -1,0 +1,26 @@
+{
+   "kind": "ImageStream",
+   "apiVersion": "v1",
+   "metadata": {
+      "name": "s2i-enroute"
+   },
+   "spec": {
+      "tags": [
+         {
+            "name": "latest",
+            "annotations": {
+               "description": "Java OpenJDK S2I enRoute image",
+               "iconClass": "icon-jboss",
+               "tags": "builder,java,gradle,enRoute,osgi",
+               "supports": "java:8,gradle:3.5.1",
+               "sampleRepo": "https://github.com/mcurcija/s2i-enroute-demo.git",
+               "version": "latest"
+            },
+            "from": {
+               "kind": "DockerImage",
+               "name": "docker.io/mcurcija/s2i-enroute:latest"
+            }
+         }
+      ]
+   }
+}
