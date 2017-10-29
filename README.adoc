@@ -1,0 +1,38 @@
+== OpenShift S2I Builder for enRoute
+This Source-to-Image Builder should support builing fatjar enRoute applications using gradle.
+
+Note: This builder is based on https://github.com/jorgemoralespou/s2i-java 
+
+== Content ==
+
+* openjdk:alpine
+* gradle 3.5.1
+* enRoute 2.0.0 Distro is already precached (in order to speed up openshift starter deployment)
+
+== BUILD ENV Options
+
+* *BUILDER_ARGS*: which tasks should be done (for example: clean export.debug)
+* *ARTIFACT_DIR*: a location where final artifact jar is found (for example: com.example.enroute.demo.application/generated/distributions/executable/")
+
+== RUN ENV Options
+
+* *APP_OPTIONS*: Options to pass to *java -jar app.jar ${APP_OPTIONS}*
+
+== Test in OpenShift
+
+* Create image stream using:
+
+----
+oc create -f https://raw.githubusercontent.com/mcurcija/s2i-enroute/master/ose3/s2i-enroute-imagestream.json
+----
+
+* Once the builder s2i-enroute has been registered, you can create an app with:
+
+** Instant app already provided as template
+** Using the s2i-enroute builder image using a regular Git repository
+
+== Samples
+
+* https://github.com/mcurcija/s2i-enroute-demo
+
+
