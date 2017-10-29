@@ -4,10 +4,7 @@ FROM openjdk:alpine
 
 LABEL maintainer="Mario Curcija <mario.curcija@gmail.com>"
 
-RUN apk --no-cache add curl libstdc++ git
-
-LABEL io.openshift.s2i.scripts-url=image:///usr/local/lib/s2i
-COPY ./s2i/bin/ /usr/local/lib/s2i
+RUN apk --no-cache add curl libstdc++ git bash
 
 WORKDIR /tmp
 
@@ -27,7 +24,10 @@ RUN mkdir -p ${HOME} \
         && addgroup enroute \
         && adduser -h ${HOME} -D -G enroute enroute
 
+LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
+COPY ./s2i/bin/ /usr/local/s2i  
 COPY ./enroute-workspace/ ${HOME}/enroute-workspace
+
 RUN chown -R enroute:enroute ${HOME}/enroute-workspace
 	 
 USER enroute
