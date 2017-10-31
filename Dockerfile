@@ -18,8 +18,12 @@ ENV HOME=/opt/app-root/src
 
 # add user enroute
 RUN mkdir -p ${HOME} \
-        && addgroup enroute \
-        && adduser -h ${HOME} -D -G enroute enroute
+        && addgroup -g 1001 enroute \
+        && adduser -u 1001 -h ${HOME} -D -G enroute enroute
+
+RUN chmod -R u+x ${HOME} && \ 
+	chgrp -R 0 ${HOME} && \
+	chmod -R g=u ${HOME} /etc/passwd 
 
 # ensure openshift deployment directory
 RUN mkdir -p /opt/openshift && chown enroute:enroute /opt/openshift
@@ -30,7 +34,7 @@ COPY ./enroute-workspace/ ${HOME}/enroute-workspace
 
 RUN chown -R enroute:enroute ${HOME}/enroute-workspace
 	 
-USER enroute
+USER 1001
 WORKDIR ${HOME}
 ENV PATH=${GRADLE_HOME}/bin/:$PATH
 
