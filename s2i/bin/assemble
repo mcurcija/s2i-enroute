@@ -32,7 +32,7 @@ if [ -z "$BUILDER_ARGS" ]; then
   export BUILDER_ARGS="build -x test"
 fi
 
-echo "Building  with '$GRADLE_CMD -s ${BUILDER_ARGS}'"
+echo "Building  with '$GRADLE_CMD -s --no-daemon ${BUILDER_ARGS}'"
 
 echo "Gradle version:"
 $GRADLE_CMD --version
