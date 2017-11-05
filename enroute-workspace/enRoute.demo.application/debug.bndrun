@@ -8,7 +8,6 @@
 
 -runtrace: true
 
--resolve: auto
 -runbundles: \
 	enRoute.demo.application;version=snapshot,\
 	json;version='[20160212.0.0,20160212.0.1)',\
