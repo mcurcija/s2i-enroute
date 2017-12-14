@@ -6,7 +6,7 @@ RUN apk --no-cache add curl libstdc++ git bash
 
 WORKDIR /tmp
 
-ENV GRADLE_VERSION=3.5.1
+ENV GRADLE_VERSION=4.4
 ENV GRADLE_HOME=/opt/gradle
 RUN curl -O --location --silent --show-error https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
         && mkdir /opt \
@@ -45,7 +45,7 @@ LABEL io.k8s.description="Platform for building enRoute fat jar applications usi
       io.openshift.tags="builder,enRoute,gradle,java,microservices,export"
 
 # preload enroute 2.0.0 distro (using minimum enroute-workspace)
-RUN gradle -b ${HOME}/enroute-workspace/build.gradle tasks
+RUN gradle --no-daemon -b ${HOME}/enroute-workspace/build.gradle export.debug
 RUN rm ${HOME}/enroute-workspace -fr 
 # check cache size 
 RUN du -xsh ~/.gradle ~/.m2 ~/.bnd 
